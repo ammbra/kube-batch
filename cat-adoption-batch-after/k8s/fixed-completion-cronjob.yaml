@@ -1,0 +1,51 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  # Use a generated name so that dis descriptor can be applied
+  # multiple times for each run
+  generateName: xml-transformer-to-csv-
+  labels:
+    app: xml-transformer-to-csv
+spec:
+    # Every two minutes
+      schedule: "*/2 * * * *"
+      concurrencyPolicy: Forbid
+      failedJobsHistoryLimit: 3
+      jobTemplate:
+        spec:
+          backoffLimit: 0
+          # Job should run 4 Pods
+          completions: 4
+          # 2 Pods should run in parallel
+          parallelism: 2
+          template:
+            metadata:
+              name: xml-transformer-to-csv
+            spec:
+              containers:
+                - image: cat-adoption-batch:1.0
+                  name: xml-transformer-to-csv
+                  ports:
+                    - containerPort: 8080
+                      name: "running-port"
+                    - containerPort: 5005
+                      name: "jvm-debug"
+                  command:
+                    - java
+                    - -jar
+                    - app.jar
+                    # 1. Arg: File to store data (on a PV)
+                    - -Doutput.csv=file:csv/report.csv
+                  env:
+                    - name: ENABLE_DEBUG
+                      value: "true"
+                    - name: DEBUG_PORT
+                      value: "5005"
+                  volumeMounts:
+                    - mountPath: /csv
+                      name: transformer-volume
+              restartPolicy: OnFailure
+              volumes:
+                - name: transformer-volume
+                  persistentVolumeClaim:
+                    claimName: csv-report

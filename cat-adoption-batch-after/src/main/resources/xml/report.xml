@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<company>
+    <record refId="1001">
+        <name>Kong</name>
+        <age>5</age>
+        <dob>31/8/2020</dob>
+        <fivPositive>no</fivPositive>
+    </record>
+    <record refId="1002">
+        <name>Yaya</name>
+        <age>9</age>
+        <dob>26/7/2020</dob>
+        <fivPositive>no</fivPositive>
+    </record>
+    <record refId="1003">
+        <name>Jewel</name>
+        <age>2</age>
+        <dob>21/8/2020</dob>
+        <fivPositive>no</fivPositive>
+    </record>
+    <record refId="1004">
+        <name>Baxi</name>
+        <age>19</age>
+        <dob>21/3/2020</dob>
+        <fivPositive>no</fivPositive>
+    </record>
+    <record refId="1005">
+        <name>Nono</name>
+        <age>1</age>
+        <dob>21/7/2020</dob>
+        <fivPositive>yes</fivPositive>
+    </record>
+</company>

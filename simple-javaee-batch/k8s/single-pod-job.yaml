@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  # Use a generated name in order to apply this descriptor multiple times for each run
+  generateName: single-pod-job-
+  labels:
+    app:  single-pod-job
+spec:
+  completions: 1
+  parallelism: 1
+  template:
+    metadata:
+      name:  single-pod-job
+    spec:
+      containers:
+        - image: simple-jee-batch:1.0
+          name: javaee-batch
+          ports:
+            - containerPort: 9080
+        - image: cosmintitei/bash-curl
+          name: sidecar
+          command: [ 'sh', '-c', 'sleep 10; curl "http://localhost:9080/simplebatch-1.0/jobstarter?action=start&jobXMLName=simple-batchlet"' ]
+      restartPolicy: OnFailure

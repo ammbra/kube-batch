@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<job id="simple-batchlet" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
+	<step id="step1">
+		<batchlet ref="com.example.jbatch.simplebatch.SimpleBatchlet" >
+            <properties>
+                <property name="wait.time.seconds" value="#{jobParameters['wait.time.seconds']}" />
+            </properties>
+        </batchlet>
+	</step>
+</job>
