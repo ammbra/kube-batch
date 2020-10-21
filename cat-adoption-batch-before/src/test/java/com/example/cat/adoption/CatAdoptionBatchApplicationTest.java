@@ -25,7 +25,7 @@ public class CatAdoptionBatchApplicationTest {
     @Test
     public void launchJob() throws Exception {
         JobExecution jobExecution = jobLauncherTestUtils.launchStep("step1");
-        assertEquals(BatchStatus.COMPLETED, BatchRuntime.getStatus());
+        assertEquals(BatchStatus.COMPLETED, jobExecution.getStatus());
 
     }
 }
